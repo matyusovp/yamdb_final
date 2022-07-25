@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push to Docker Hub
-        # Пуш образа в Docker Hub ss
+        # Пуш образа в Docker Hub ssd
         uses: docker/build-push-action@v2 
         with:
           push: true
