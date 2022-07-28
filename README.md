@@ -1,6 +1,8 @@
 ![example workflow](https://github.com/matyusovp/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 В данный момент доступен по адресу: 
 
+http://130.193.43.108/api/v1/
+
 # Проект api_yamdb
 
 ## Описание
