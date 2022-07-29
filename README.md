@@ -23,15 +23,45 @@ YaMDB отправляет письмо с кодом подтверждения
 **Модератор (moderator)** — те же права, что и у Аутентифицированного пользователя плюс право удалять и редактировать любые отзывы и комментарии.
 **Администратор (admin)** — полные права на управление проектом и всем его содержимым. Может создавать и удалять произведения, категории и жанры. Может назначать роли пользователям.
 **Администратор Django** — те же права, что и у роли Администратор.
-## Установка
+## Установка локально.
 Склонируйте репозиторий. Находясь в папке с кодом создайте виртуальное окружение `python -m venv venv`, активируйте его (Windows: `source venv\scripts\activate`; Linux/Mac: `sorce venv/bin/activate`), установите зависимости `python -m pip install -r requirements.txt`.
 Для запуска сервера разработки,  находясь в директории проекта выполните команды:
 ```
+Выполняются миграции. 
 python manage.py migrate
+Создается суперпользователь. 
 python manage.py createsuperuser
+Запускается сервер.
 python manage.py runserver
 ```
-
+## Установка через Docker
+1. Сделать fork проекта в свой GitHUB;
+2. В разделе проекта Setting/Secrets указать логин и пароль DockerHUB с ключами:
+DOCKER_USERNAME, DOCKER_PASSWORD
+3. В разделе проекта Setting/Secrets указать параметры (хост, логин, ssh-key, пароль ) DockerHUB с ключами:
+HOST, USER, SSH_KEY, PASSPHRASE
+4. В разделе проекта Setting/Secrets указать параметры базы данных с ключами:
+DB_ENGINE, DB_NAME , POSTGRES_USER, POSTGRES_PASSWORD, DB_HOST, DB_PORT
+5. В разделе проекта Setting/Secrets указать параметры базы данных с ключами:
+DB_ENGINE, DB_NAME , POSTGRES_USER, POSTGRES_PASSWORD, DB_HOST, DB_PORT
+6. В разделе проекта Setting/Secrets указать ID телеграм-канала и токен телеграм-бота для получения уведомлений с ключами:
+TELEGRAM_TO, TELEGRAM_TOKEN
+7. Подготовить сервер:
+- Остановить службу nginx:
+ sudo systemctl stop nginx 
+- Установить докер:
+ sudo apt install docker.io 
+- Установить docker-compose в соответствии с официальной документацией;
+- Скопировать файлы docker-compose.yaml и nginx/default.conf из проекта на сервер в home/<ваш_username>/docker-compose.yaml и home/<ваш_username>/nginx/default.conf соответственно.
+8. На GitHUB выполнить commit, после которого запустятся процедуры workflow;
+9. На сервере выполнить миграции, создать суперюзера, собрать статику:
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py createsuperuser
+docker-compose exec web python manage.py collectstatic --no-input
+10. Набрать в браузере:
+http://<ip_сервера>/admin
+Работоспособность приложения можно проверить без развертывания на уже запущенном сервере:
+http://84.252.142.36/admin
 ##  Примеры запросов к API:
 
 Получение списка всех категорий:
@@ -74,3 +104,7 @@ http://127.0.0.1:8000/api/v1/users/
 ```
 http://127.0.0.1:8000/api/v1/users/user1/
 ```
+
+Контакты:
+Автор : Павел. М.
+tg : bizewka
