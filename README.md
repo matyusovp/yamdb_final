@@ -58,7 +58,8 @@ TELEGRAM_TO, TELEGRAM_TOKEN
 docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py createsuperuser
 docker-compose exec web python manage.py collectstatic --no-input
-10. Набрать в браузере:
+10. Для заполенния бд, скачайте файл fixtures.json из корневой директории проекта, перенесите его на свой удаленный сервер. после выполните python manage.py loaddata fixtures.json 
+11. Набрать в браузере:
 http://<ip_сервера>/admin
 Работоспособность приложения можно проверить без развертывания на уже запущенном сервере:
 http://84.252.142.36/admin
